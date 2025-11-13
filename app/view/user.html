@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <form class="row g-3 needs-validation" id="form">
+            <div class="col-md-4">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome." required>
+            </div>
+            <div class="col-md-4">
+                <label for="sobrenome" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="sobrenome" name="sobrenome"
+                    placeholder="Por favor digite seu sobre nome" required>
+            </div>
+            <div class="col-md-4">
+                <label for="cpf" class="form-label">CPF/CNPJ</label>
+                <input type="text" class="form-control" id="cpf" name="cpf"
+                    placeholder="Por favor digite seu CPF ou CNPJ" required>
+            </div>
+            <div class="col-md-4">
+                <label for="rg" class="form-label">RG/IE</label>
+                <input type="text" class="form-control" id="rg" name="rg"
+                    placeholder="Por favor digite seu RG ou Inscrição Estadual" required>
+            </div>
+            <div class="col-md-4">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Por favor digite E-mail"
+                    required>
+            </div>
+            <div class="col-md-4">
+                <label for="tel" class="form-label">Celular</label>
+                <input type="text" class="form-control" id="tel" name="tel" placeholder="Por favor digite o telefone"
+                    required>
+            </div>
+            <div class="col-md-4">
+                <label for="tel" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Por favor digite o sua Senha"
+                    required>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="button" id="insert">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% include "script.html" %}
+<script defer type="module" src="/js/user.js"></script>
+{% endblock %}

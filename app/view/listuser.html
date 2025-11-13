@@ -1,0 +1,237 @@
+{% extends "main.html" %}
+{% block main %}
+
+<h3 class="text-center text-light mb-4">Lista de Usuários</h3>
+
+<div class="form-card shadow-lg">
+  <h2 class="text-center mb-4">Cadastro de Usuário</h2>
+
+  <form class="needs-validation" id="signupForm" novalidate>
+    <div class="row g-3">
+
+      <!-- Nome e Sobrenome -->
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Ex: Ana" required>
+        <div class="invalid-feedback">Informe seu nome.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Sobrenome</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Ex: Silva" required>
+        <div class="invalid-feedback">Informe seu sobrenome.</div>
+      </div>
+
+      <!-- Username e Email -->
+      <div class="col-md-6">
+        <label for="username" class="form-label">Nome de usuário</label>
+        <div class="input-group has-validation">
+          <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+          <input type="text" class="form-control" id="username" placeholder="Ex: ana.silva" required>
+          <div class="invalid-feedback">Escolha um nome de usuário.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-group has-validation">
+          <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+          <input type="email" class="form-control" id="email" placeholder="exemplo@email.com" required>
+          <div class="invalid-feedback">Informe um e-mail válido.</div>
+        </div>
+      </div>
+
+      <!-- Telefone e Cidade -->
+      <div class="col-md-6">
+        <label for="phone" class="form-label">Telefone</label>
+        <div class="input-group has-validation">
+          <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+          <input type="tel" class="form-control" id="phone" placeholder="(11) 91234-5678" required>
+          <div class="invalid-feedback">Telefone inválido. Use DDD.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="city" class="form-label">Cidade</label>
+        <input type="text" class="form-control" id="city" placeholder="Ex: São Paulo" required>
+        <div class="invalid-feedback">Informe sua cidade.</div>
+      </div>
+
+      <!-- Estado, CEP e Senha -->
+      <div class="col-md-4">
+        <label for="state" class="form-label">Estado</label>
+        <select class="form-select" id="state" required>
+          <option selected disabled value="">Escolher...</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="SP">São Paulo</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="ES">Espírito Santo</option>
+          <!-- outros estados... -->
+        </select>
+        <div class="invalid-feedback">Escolha um estado.</div>
+      </div>
+      <div class="col-md-4">
+        <label for="zip" class="form-label">CEP</label>
+        <input type="text" class="form-control" id="zip" placeholder="00000-000" required>
+        <div class="invalid-feedback">Informe um CEP válido.</div>
+      </div>
+      <div class="col-md-4">
+        <label for="password" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+        <div class="strength-bar mt-1"><div id="strengthIndicator"></div></div>
+        <div class="invalid-feedback">Informe sua senha.</div>
+      </div>
+
+      <!-- Termos e botão -->
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="terms" required>
+          <label class="form-check-label" for="terms">Concordo com os <a href="#">termos e condições</a>.</label>
+          <div class="invalid-feedback">Você deve aceitar os termos.</div>
+        </div>
+      </div>
+
+      <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-danger btn-lg px-5">Cadastrar</button>
+      </div>
+
+      <div class="col-12 mt-3">
+        <div class="alert alert-success text-center success-message" id="successMsg">Cadastro realizado com sucesso! 🎉</div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<style>
+body {
+  background: linear-gradient(135deg, #e10600 0%, #000000 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+.text-light { color: #fff; }
+
+.form-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 720px;
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.form-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+h2 {
+  color: #e10600;
+}
+
+.btn-danger {
+  background-color: #e10600;
+  border: none;
+  transition: 0.3s;
+}
+.btn-danger:hover {
+  background-color: #a80000;
+}
+
+.success-message {
+  display: none;
+  font-weight: 600;
+  transition: all 0.4s ease-in-out;
+}
+
+.strength-bar {
+  height: 6px;
+  border-radius: 4px;
+  background-color: #ddd;
+  margin-top: 5px;
+  overflow: hidden;
+}
+.strength-bar div {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+.strength-weak { background-color: #ff4d4d; }
+.strength-medium { background-color: #ffc107; }
+.strength-strong { background-color: #28a745; }
+</style>
+
+<script>
+(function() {
+  const form = document.getElementById('signupForm');
+  const successMsg = document.getElementById('successMsg');
+  const passwordInput = document.getElementById('password');
+  const strengthBar = document.getElementById('strengthIndicator');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated');
+      successMsg.style.display = 'none';
+      return;
+    }
+    form.classList.add('was-validated');
+    setTimeout(() => {
+      successMsg.style.display = 'block';
+      form.reset();
+      form.classList.remove('was-validated');
+      strengthBar.style.width = '0%';
+    }, 500);
+  });
+
+  // Máscaras
+  document.getElementById('phone').addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/\D/g,'')
+      .replace(/^(\d{2})(\d)/g,'($1) $2')
+      .replace(/(\d{5})(\d)/,'$1-$2')
+      .slice(0,15);
+  });
+  document.getElementById('zip').addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/\D/g,'')
+      .replace(/^(\d{5})(\d)/,'$1-$2')
+      .slice(0,9);
+  });
+
+  // Força da senha
+  passwordInput.addEventListener('input', (e) => {
+    const val = e.target.value;
+    let strength = 0;
+    if(val.length>=6) strength++;
+    if(/[A-Z]/.test(val)) strength++;
+    if(/[0-9]/.test(val)) strength++;
+    if(/[^A-Za-z0-9]/.test(val)) strength++;
+    let colorClass = '';
+    switch(strength){
+      case 0: strengthBar.style.width='0%'; break;
+      case 1: strengthBar.style.width='25%'; colorClass='strength-weak'; break;
+      case 2: strengthBar.style.width='50%'; colorClass='strength-medium'; break;
+      case 3: strengthBar.style.width='75%'; colorClass='strength-medium'; break;
+      case 4: strengthBar.style.width='100%'; colorClass='strength-strong'; break;
+    }
+    strengthBar.innerHTML=`<div class="${colorClass}"></div>`;
+  });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
